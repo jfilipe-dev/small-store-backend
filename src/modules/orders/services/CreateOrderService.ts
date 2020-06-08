@@ -48,6 +48,12 @@ class CreateOrderService {
         productFind => productFind.id === productData.id,
       );
 
+      if (productFinal?.quantity) {
+        if (productFinal?.quantity > productData.quantity) {
+          throw new AppError('insufficient product quantity');
+        }
+      }
+
       return {
         product_id: productData.id,
         price: productData.price,
